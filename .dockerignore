@@ -1,0 +1,25 @@
+# This keeps your image smaller, faster to build, and free of unnecessary or sensitive files.
+#
+# Explanation:
+#   cat > .dockerignore    -> Redirects text input into a new file named ".dockerignore"
+#   <<'EOF' ... EOF        -> Everything between these markers is written into the file, literally.
+#                            Single quotes prevent shell variable expansion inside.
+#
+# File contents:
+#   node_modules           -> Excludes locally installed dependencies (Docker will install inside container)
+#   npm-debug.log          -> Excludes npm debug logs
+#   Dockerfile*            -> Excludes Dockerfile(s) from context (not needed inside container)
+#   .dockerignore          -> Excludes the ignore file itself
+#   .git, .gitignore       -> Excludes Git repo and ignore files
+#   .env                   -> Excludes environment variable files (keep secrets out of images)
+#   *.log                  -> Excludes all log files
+
+cat > .dockerignore <<'EOF'
+node_modules
+npm-debug.log
+Dockerfile*
+.dockerignore
+.git
+.gitignore
+.env
+*.log
